@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml type="demo">
+    <example.Example exampleId="One" exampleName="Atharv" exampleDate="2024-08-20" examplePrice="99.99" exampleQuantity="9"/>
+    <example.Example exampleId="Two" exampleName="Cosmic" exampleDate="2024-07-24" examplePrice="88.88" exampleQuantity="8"/>
+</entity-facade-xml>
+
+<!--First packageName then Entity name-->
+<!--<field name="exampleId" type="id" is-pk="true"/>-->
+<!--<field name="exampleName" type="text-medium"/>-->
+<!--<field name="exampleDate" type="date"/>-->
+<!--<field name="examplePrice" type="number-decimal"/>-->
+<!--<field name="exampleQuantity" type="number-integer"/>-->

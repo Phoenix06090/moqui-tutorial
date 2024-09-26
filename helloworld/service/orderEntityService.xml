@@ -1,0 +1,194 @@
+<services>
+
+    <!--Service 1-->
+<!--
+    Find all Person records for all females.
+    a. Service name - verb="get" noun="FemalePersons"
+    b. Out parameters - personsList
+-->
+
+    <!--<!-    <entity entity-name="Person" package="mantle.party">&ndash;&gt;-->
+    <!--     <field name="gender" type="text-indicator"/>-->
+
+    <service name="getgenderData" verb="get" noun="FemalePersons">
+        <out-parameters>
+            <out-parameter name="PersonsList" type="mantle.party.person"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.party.person" list="personsList">
+                <econdition field-name="gender" operator="equals" value="Female"/>
+            </entity-find>
+        </actions>
+    </service>
+
+    <!--Service 2-->
+<!--    List the Person details with MarsMarried marital status.
+a. Service name - verb="get" noun="Persons"
+b. Out parameters - personsList->
+
+    <!-    <entity entity-name="Person" package="mantle.party">-->
+    <!--    <field name="maritalStatusEnumId" type="id"/>-->
+
+    <service name="getMarriedData" verb="get" noun="Persons">
+        <out-parameters>
+            <out-parameter name="PersonsList" type="mantle.party.person"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.party.person" list="personsList">
+                <econdition field-name="maritalStatusEnumId" operator="equals" value="MarsMarried"/>
+            </entity-find>
+        </actions>
+    </service>
+
+
+    <!--Service 3-->
+
+    <service name="getLatestOrders" verb="get" noun="LatestOrders">
+        <!--    Retrieve latest Order Header records sorted by placedDate in descending order.-->
+        <out-parameters>
+            <out-parameter name="ordersList" type="mantle.order.OrderHeader"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.order.OrderHeader" list="ordersList">
+                <order-by field-name="placedDate" descending="true"/>
+                <!--            <order-by>placedDate</order-by>-->
+            </entity-find>
+        </actions>
+    </service>
+
+
+    <!--Service 4-->
+
+    <service name="getOrder" verb="get" noun="Order">
+    <!--    Find the Order Header details for a given orderId.-->
+        <in-parameters>
+            <in-parameter name="orderId" type="id"/>
+        </in-parameters>
+        <out-parameters>
+            <out-parameter name="orderDetails" type="mantle.order.OrderHeader"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.order.OrderHeader" list="orderDetails">
+                <econdition field-name="orderId" operator="equals" value="orderId"/>
+                <!--            Use of econdition-->
+                <!--                <econdition field-name = "statusId" value = "completed"></econdition>-->
+                <!--  for more condition like greater than and so on we add operator="greater-than-equal"-->
+            </entity-find>
+        </actions>
+    </service>
+
+
+    <!--Service 5-->
+
+    <!--    Find all Order Header records with the grandTotal greater than 50.-->
+    <!--    a. Service name - verb="get" noun="OrderHeaders"-->
+    <!--    b. Out parameters - orderHeaderDetails-->
+
+    <!--    <field name="grandTotal" type="currency-amount"/>-->
+
+    <service name="Total" verb="get" noun="OrderHeaders">
+        <!--    Find the Order Header details for a given orderId.-->
+        <in-parameters>
+            <in-parameter name="orderId" type="id"/>
+        </in-parameters>
+        <out-parameters>
+            <out-parameter name="orderHeaderDetails" type="mantle.order.OrderHeader"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.order.OrderHeader" list="orderDetails">
+                <econdition field-name="grandTotal" operator="greater-than-equal" value="50"/>
+                <!--            Use of econdition-->
+                <!--                <econdition field-name = "statusId" value = "completed"></econdition>-->
+                <!--  for more condition like greater than and so on we add operator="greater-than-equal"-->
+            </entity-find>
+        </actions>
+    </service>
+
+
+
+    <!--Services 6-->
+    <!--    List all Order Item details for the order with orderId, 100102 and-->
+    <!--    orderPartSeqId, 01.-->
+    <!--    a. Service name - verb="get" noun="OrderItems"-->
+    <!--    b. Out parameters - orderItemDetails-->
+    <!--        <entity entity-name="OrderHeader" package="mantle.order" short-alias="orders" cache="never">-->
+    <!--        <field name="orderId" type="id" is-pk="true"/>-->
+    <service name="listOrderIdDetails" verb="get" noun="OrderItems">
+        <out-parameters>
+            <out-parameter name="orderItemDetails" type="mantle.order.OrderHeader"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.order.OrderHeader" list="orderHeaderDetails">
+                <econdition field-name="orderId" operator="equals" value="100102"/>
+                <econdition field-name="orderPartSeqId" operator="equals" value="01"/>
+            </entity-find>
+        </actions>
+    </service>
+
+
+    <!--Services 7-->
+    <!--    Find all Order Parts with partTotal less than equals to 20.-->
+    <!--    a. Service name - verb="get" noun="OrderParts"-->
+    <!--    b. Out parameters - orderPartDetails-->
+    <!--    <field name="partTotal" type="currency-amount"/>-->
+    <!--    <entity entity-name="OrderPart" package="mantle.order" short-alias="orderParts" cache="never">-->
+
+    <service name="allOrderParts" verb="get" noun="OrderParts">
+        <out-parameters>
+            <out-parameter name="orderPartDetails" type="mantle.order.OrderHeader"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.order.OrderPart" list="orderPartDetails">
+                <econdition field-name="partTotal" operator="less-than-equal" value="20"/>
+            </entity-find>
+        </actions>
+    </service>
+
+
+    <!--Service 8-->
+
+
+
+    <!--Services-9-->
+
+<!--    Find the count of order parts for the customer Party Id, “CustJqp”.-->
+<!--    a. Service name - verb="get" noun="OrderPartsCount"-->
+<!--    b. Out parameters - orderPartsCount-->
+
+<!--    <entity entity-name="OrderEmailMessage" package="mantle.order" cache="never">-->
+<!--    <field name="partyId" type="id">-->
+
+    <service name="CountOfOrderParts" verb="get" noun="OrderPartsCount">
+        <out-parameters>
+            <out-parameter-count name="orderPartCount" type="mantle.order.OrderHeader"/>
+        </out-parameters>
+        <actions>
+            <entity-find-count entity-name="mantle.order.OrderEmailMessage" list="orderDetails">
+                <econdition field-name="partyId" operator="equals" value="CustJpq"/>
+            </entity-find-count>
+        </actions>
+    </service>
+
+<!--    Service 10-->
+
+<!--    Find all unique Order Parts with shipmentMethodEnumId value as-->
+<!--    “ShtMthGround” and facilityId as “ZIRET_WH”.-->
+<!--    a. Service name - verb="get" noun="OrderPartsInfo"-->
+<!--    b. Out parameters - orderPartsList-->
+<!--    <entity entity-name="OrderPart" package="mantle.order" short-alias="orderParts" cache="never">-->
+<!--    <field name="shipmentMethodEnumId" type="id" enable-audit-log="update"/>-->
+
+    <service name="getShipmentInfo" verb="get" noun="OrderPartsInfo">
+        <out-parameters>
+            <out-parameter name="orderPartsList" type="mantle.order.OrderPart"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.order.OrderPart" distinct="true" list="orderPartsList">
+                <econdition field-name="shipmentMethodEnumId" operator="equals" value="ShtMthGround"/>
+                <econdition field-name="facilityId" operator="equals" value="ZIRET_WH"/>
+            </entity-find>
+        </actions>
+    </service>
+
+
+</services>

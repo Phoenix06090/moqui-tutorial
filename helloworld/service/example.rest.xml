@@ -1,0 +1,28 @@
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="https://moqui.org/xsd/rest-api-3.xsd"
+          name="example" displayName="Example REST API" version="2.0.0">
+
+    <resource name="example" require-authentication="anonymous-all">
+
+               <!-- Create new example -->
+        <method type="post">
+            <entity name="Example" operation="create"/>
+        </method>
+
+                <!-- Get all examples -->
+        <method type="get">
+            <entity name="Example" operation="list"/>
+        </method>
+
+                <!-- Update -->
+        <method type="put">
+            <entity name="Example" operation="update"/>
+        </method>
+
+                <!-- Delete example -->
+        <method type="delete">
+            <entity name="Example" operation="delete"/>
+        </method>
+
+    </resource>
+</resource>

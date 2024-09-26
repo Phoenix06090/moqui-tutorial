@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="hello-component" location="component/helloworld">
+    <entity location="example.xml"/>
+    <rest location="example.rest.xml"/>
+    <resource location="service/orderEntityService.xml"/>
+</component>
